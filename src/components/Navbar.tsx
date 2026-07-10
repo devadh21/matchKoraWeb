@@ -9,7 +9,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/matches', label: 'Matches' },
   { href: '/teams', label: 'Teams' },
-  { href: '/channels', label: 'Channels' },
+  // { href: '/channels', label: 'Channels' },
   { href: '/fixtures', label: 'Fixtures' },
 ]
 
@@ -22,8 +22,11 @@ export function Navbar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🏆</span>
-            <span className="text-white font-bold text-xl">matchKora</span>
+            <img
+              src="/logo-3.png"
+              alt="matchKora logo"
+              className="w-20 h-20 object-contain"
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
@@ -33,9 +36,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-semibold transition-colors hover:text-greenly ${
-                    isActive ? 'text-greenly' : 'text-whitely/80'
-                  }`}
+                  className={`text-sm font-semibold transition-colors hover:text-greenly ${isActive ? 'text-greenly' : 'text-whitely/80'
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -62,11 +64,10 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                    isActive
+                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${isActive
                       ? 'bg-greenly/20 text-greenly'
                       : 'text-whitely/80 hover:bg-darklyLight'
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>

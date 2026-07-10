@@ -243,4 +243,4 @@ export async function syncWorldCupScores(): Promise<{ updated: number }> {
     console.error('syncWorldCupScores error:', error)
     return { updated: 0 }
   }
-}
+} 

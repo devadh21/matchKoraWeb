@@ -11,9 +11,6 @@ interface Props {
 export default async function MatchDetailPage({ params }: Props) {
   const { id } = await params
   const match = await getMatchById(Number(id))
-
-  console.log('MatchDetailPage match:', match) // Debugging line
-
   if (!match) notFound()
 
   return (

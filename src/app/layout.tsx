@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'matchKora - FIFA World Cup 2026',
+    icons: {
+    icon: "/icon.png",
+  },
   description:
     'Follow all 104 matches of the FIFA World Cup 2026 tournament across 16 stadiums in United States, Canada, and Mexico.',
   openGraph: {

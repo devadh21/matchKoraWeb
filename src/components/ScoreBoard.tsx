@@ -2,7 +2,9 @@ import { Volleyball } from 'lucide-react'
 
 interface ScoreBoardProps {
   teamACode: string
+  teamAFlag?: string | null
   teamBCode: string
+  teamBFlag?: string | null
   teamAScore?: number | null
   teamBScore?: number | null
   teamAScorers?: string[] | null
@@ -12,7 +14,9 @@ interface ScoreBoardProps {
 
 export function ScoreBoard({
   teamACode,
+  teamAFlag,
   teamBCode,
+  teamBFlag,
   teamAScore,
   teamBScore,
   teamAScorers,
@@ -26,7 +30,8 @@ export function ScoreBoard({
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center justify-center gap-6">
-        <div className="flex items-center justify-center flex-1">
+        <div className="flex flex-col items-center">
+          {teamAFlag && <img src={teamAFlag} alt={`${teamACode} flag`} className="w-12 h-12" />}
           <span className="text-white text-lg font-bold">{teamACode}</span>
         </div>
 
@@ -45,7 +50,8 @@ export function ScoreBoard({
           )}
         </div>
 
-        <div className="flex items-center justify-center flex-1">
+        <div className="flex flex-col items-center">
+          {teamBFlag && <img src={teamBFlag} alt={`${teamBCode} flag`} className="w-12 h-12" />}
           <span className="text-white text-lg font-bold">{teamBCode}</span>
         </div>
       </div>

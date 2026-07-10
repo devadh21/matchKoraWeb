@@ -12,6 +12,8 @@ export default async function MatchDetailPage({ params }: Props) {
   const { id } = await params
   const match = await getMatchById(Number(id))
 
+  console.log('MatchDetailPage match:', match) // Debugging line
+
   if (!match) notFound()
 
   return (
@@ -27,7 +29,9 @@ export default async function MatchDetailPage({ params }: Props) {
         <div className="p-6">
           <ScoreBoard
             teamACode={match.team_a_code}
+            teamAFlag={match.team_a?.flag}
             teamBCode={match.team_b_code}
+            teamBFlag={match.team_b?.flag}
             teamAScore={match.team_a_score}
             teamAScorers={match.team_a_scorers}
             teamBScore={match.team_b_score}

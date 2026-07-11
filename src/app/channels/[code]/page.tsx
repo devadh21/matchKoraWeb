@@ -1,7 +1,6 @@
 import { getChannels, getChannelMatches } from '@/lib/api'
 import { MatchCard } from '@/components/MatchCard'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -21,12 +20,6 @@ export default async function ChannelDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-darkly">
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <Link
-          href="/channels"
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-whitely/80 transition-colors mb-4"
-        >
-          <ArrowLeft size={22} color="black" />
-        </Link>
 
         <div className="flex justify-between items-center bg-darklyLight rounded-xl p-4 mb-4">
           <div>

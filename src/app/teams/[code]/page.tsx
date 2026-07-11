@@ -1,7 +1,6 @@
 import { getTeams, getTeamMatches } from '@/lib/api'
 import { MatchCard } from '@/components/MatchCard'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import type { Match } from '@/types'
 
@@ -31,13 +30,6 @@ export default async function TeamDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-darkly">
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <Link
-          href="/teams"
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-whitely/80 transition-colors mb-4"
-        >
-          <ArrowLeft size={22} color="black" />
-        </Link>
-
         <div className="bg-darklyLight rounded-xl p-4 mb-4 flex flex-col items-center justify-center">
           {team.flag && (
             <img

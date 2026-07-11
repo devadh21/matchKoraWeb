@@ -1,9 +1,10 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { syncWorldCupScores } from '@/lib/api'
 
 
 export default function HomePage() {
+
+  // Sync scores on page load
 
   const handleSyncScores = async () => {
     try {
@@ -18,12 +19,6 @@ export default function HomePage() {
   return (
     <div className="min-h-[calc(100vh-8rem)] bg-darkly flex items-center justify-center py-10">
       <div className="flex flex-col items-center px-4 max-w-lg">
-        <img
-          src="/logo-3.png"
-          alt="matchKora logo"
-          className="w-40 h-40 object-contain"
-        />
-
         <div className="w-full h-80 flex justify-center items-center relative">
           <span className="text-[200px] font-black text-greenly/80 tracking-[-10px] absolute select-none">
             26

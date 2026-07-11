@@ -26,7 +26,7 @@ export default async function MatchesPage() {
     <div className="min-h-screen bg-darkly">
       <div className="max-w-3xl mx-auto px-4 pt-6 pb-8">
         <div className="px-4 pt-4 pb-2">
-          <h1 className="text-white text-2xl font-bold">matchKora</h1>
+          <h1 className="text-white text-2xl font-bold">Matches</h1>
           <p className="text-whitely/60 text-sm mt-1 flex items-center gap-1">
             FIFA World Cup 2026 <Trophy size={16} />
           </p>

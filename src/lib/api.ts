@@ -1,4 +1,4 @@
-import { createServerClient, isConfigured } from './supabase'
+import { createBrowserClient, createServerClient, isConfigured } from './supabase'
 import type { Match, Team, Channel, MatchWithChannels } from '@/types'
 import type { Team as WorldCupTeam } from '@/types/worldCupTypes'
 
@@ -241,6 +241,70 @@ export async function syncWorldCupScores(): Promise<{ updated: number }> {
     return { updated }
   } catch (error) {
     console.error('syncWorldCupScores error:', error)
+    return { updated: 0 }
+  }
+} 
+
+export async function syncWorldCupScoresBrowser(): Promise<{ updated: number }> {
+  const supabase = createBrowserClient()
+  try {
+    const { data: localMatches, error } = await supabase
+      .from('matches')
+      .select('*')
+      .is('team_a_score', null)
+      .is('team_b_score', null)
+
+    if (error) throw error
+    if (!localMatches || localMatches.length === 0) return { updated: 0 }
+
+    const teamsRes = await fetch('https://worldcup26.ir/get/teams', {
+      headers: { Accept: 'application/json' },
+    })
+    const teamsData = await teamsRes.json()
+    const apiTeams: WorldCupTeam[] = Array.isArray(teamsData)
+      ? teamsData
+      : (teamsData as any)?.teams ?? []
+
+    const teamIdToFifa = new Map<string, string>()
+    for (const t of apiTeams) {
+      teamIdToFifa.set(t.id, t.fifa_code)
+    }
+
+    const games = await getworldCupGames()
+    if (!games || !Array.isArray(games)) return { updated: 0 }
+
+    let updated = 0
+    for (const game of games) {
+      const homeFifa = teamIdToFifa.get(game.home_team_id)
+      const awayFifa = teamIdToFifa.get(game.away_team_id)
+      if (!homeFifa || !awayFifa) continue
+
+      const match = (localMatches as any[]).find(
+        (m: any) => m.team_a_code === homeFifa && m.team_b_code === awayFifa,
+      )
+      if (!match) continue
+
+      const { error: updateError } = await supabase
+        .from('matches')
+        .update({
+          team_a_score: parseInt(game.home_score, 10),
+          team_b_score: parseInt(game.away_score, 10),
+          team_a_scorers: parseScorers(game.home_scorers),
+          team_b_scorers: parseScorers(game.away_scorers),
+          status: 'finished',
+        })
+        .eq('id', match.id)
+
+      if (updateError) {
+        console.error('Failed to update match', match.id, updateError)
+      } else {
+        updated++
+      }
+    }
+
+    return { updated }
+  } catch (error) {
+    console.error('syncWorldCupScoresBrowser error:', error)
     return { updated: 0 }
   }
 } 

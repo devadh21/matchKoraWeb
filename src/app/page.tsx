@@ -1,20 +1,6 @@
 
-import { syncWorldCupScores } from '@/lib/api'
-
 
 export default function HomePage() {
-
-  // Sync scores on page load
-
-  const handleSyncScores = async () => {
-    try {
-      const response = await syncWorldCupScores()
-    } catch (error) {
-      console.error('Error syncing scores:', error)
-    }
-  }
-
-  handleSyncScores()
   
   return (
     <div className="min-h-[calc(100vh-8rem)] bg-darkly flex items-center justify-center py-10">

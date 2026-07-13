@@ -9,5 +9,5 @@ export async function GET(request: NextRequest) {
 
   const result = await syncWorldCupScores()
   return NextResponse.json({ success: true, ...result })
-}
+} 
  

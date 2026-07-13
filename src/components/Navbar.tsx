@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, RefreshCcw, X } from 'lucide-react'
 import { useState } from 'react'
-import { syncWorldCupScoresBrowser } from '@/lib/api'
+import { syncScoresAction } from '@/app/actions/syncScores'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -16,6 +16,7 @@ const links = [
 
 export function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -23,9 +24,9 @@ export function Navbar() {
   const handleSyncScores = async () => {
     try {
       setLoading(true)
-      const response = await syncWorldCupScoresBrowser()
+      const response = await syncScoresAction()
       if (response.updated !== 0) {
-        window.location.reload()     // Reload the page to reflect any changes
+        router.refresh() //window.location.reload()     // Reload the page to reflect any changes
       }
     } catch (error) {
       console.error('Error syncing scores:', error)
